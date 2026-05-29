@@ -37,7 +37,10 @@ const SignupForm = () => {
         alert(response.data.message || "Failed to send OTP.");
       }
     } catch (error) {
-      alert(error.response?.data?.message || "Error sending OTP.");
+      console.log("OTP Error:", error);
+      console.log("Response:", error.response);
+      console.log("Data:", error.response?.data);
+      alert(error.response?.data?.message || error.message);
     }
   };
 
