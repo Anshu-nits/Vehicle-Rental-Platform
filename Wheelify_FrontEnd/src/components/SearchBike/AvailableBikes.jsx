@@ -13,6 +13,7 @@ import axios from "axios";
 import { AuthContext } from "../../AuthContext/AuthContext.jsx";
 
 const AvailableBikes = () => {
+  const BASE_URL = import.meta.env.VITE_BACKEND_URL;
   const locationState = useLocation().state;
   const navigate = useNavigate();
   const { token } = useContext(AuthContext);
@@ -38,7 +39,7 @@ const AvailableBikes = () => {
     try {
       setLoading(true);
       const { data } = await axios.post(
-        "/api/v1/search-available-bikes",
+        `${BASE_URL}/api/v1/search-available-bikes`,
         formData,
         {
          headers: {
@@ -91,7 +92,7 @@ const AvailableBikes = () => {
       };
 
       const response = await axios.post(
-        "/api/v1/add-to-user-cart",
+        `${BASE_URL}/api/v1/add-to-user-cart`,
         bookingPayload,
         {
           headers: {

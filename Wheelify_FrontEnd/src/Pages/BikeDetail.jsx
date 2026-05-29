@@ -4,6 +4,7 @@ import { AuthContext } from "../AuthContext/AuthContext";
 import axios from "axios";
 
 const BikeDetail = () => {
+    const BASE_URL = import.meta.env.VITE_BACKEND_URL;
     const { id } = useParams();
     const navigate = useNavigate();
     const [bike, setBike] = useState(null);
@@ -14,7 +15,7 @@ const BikeDetail = () => {
     useEffect(() => {
         const fetchBikeDetail = async () => {
             try {
-                const res = await axios.get(`/api/v1/bike/${id}`, {
+                const res = await axios.get(`${BASE_URL}/api/v1/bike/${id}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

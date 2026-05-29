@@ -4,6 +4,7 @@ import axios from 'axios';
 import { AuthContext } from "../../AuthContext/AuthContext.jsx";
 
 const ContactUs = () => {
+  const BASE_URL = import.meta.env.VITE_BACKEND_URL;
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -22,7 +23,7 @@ const ContactUs = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('/api/v1/contact',
+      const res = await axios.post(`${BASE_URL}/api/v1/contact`,
       formData,
       {
           headers: {

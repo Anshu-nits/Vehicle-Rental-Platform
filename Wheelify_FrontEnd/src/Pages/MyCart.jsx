@@ -5,13 +5,14 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthContext/AuthContext.jsx";
 
 const MyCart = () => {
+  const BASE_URL = import.meta.env.VITE_BACKEND_URL;
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const { token } = useContext(AuthContext);
 
   const fetchCart = async () => {
     try {
-      const res = await axios.get("/api/v1/get-cart-details", {
+      const res = await axios.get(`${BASE_URL}/api/v1/get-cart-details`, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });
@@ -34,7 +35,7 @@ const MyCart = () => {
   const handleRemove = async (bookingMongoId) => {
     try {
       const res = await axios.post(
-        "/api/v1/remove-from-user-cart",
+        `${BASE_URL}/api/v1/remove-from-user-cart`,
         { bookingId: bookingMongoId }, // Send MongoDB _id for removal
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -52,7 +53,7 @@ const MyCart = () => {
   const handleClearCart = async () => {
     try {
       const res = await axios.post(
-        "/api/v1/clear-user-cart",
+        `${BASE_URL}/api/v1/clear-user-cart`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -68,7 +69,7 @@ const MyCart = () => {
   const handlePayment = async (booking) => {
     try {
       const res = await axios.post(
-        "/api/v1/add-to-history",
+        `${BASE_URL}/api/v1/add-to-history`,
         { bookingId: booking.bookingId }, // Use the custom bookingId string field
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -101,7 +102,7 @@ const MyCart = () => {
       const results = await Promise.allSettled(
         cartItems.map((item) =>
           axios.post(
-            "/api/v1/add-to-history",
+            `${BASE_URL}/api/v1/add-to-history`,
             { bookingId: item.bookingId }, // Use the custom bookingId string field
             {
               headers: { Authorization: `Bearer ${token}` },

@@ -4,6 +4,7 @@ import { AuthContext } from '../../AuthContext/AuthContext';
 import RatingModal from './RatingModel.jsx';
 
 const Testimonials = () => {
+  const BASE_URL = import.meta.env.VITE_BACKEND_URL;
   const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,7 +20,7 @@ const Testimonials = () => {
 
   const fetchTestimonials = async () => {
     try {
-      const { data } = await axios.get("/api/v1/get-top-rating");
+      const { data } = await axios.get(`${BASE_URL}/api/v1/get-top-rating`);
 
       console.log(data);
 
@@ -36,7 +37,7 @@ const Testimonials = () => {
   // Fetch user's existing rating
   const fetchUserRating = async () => {
     try {
-      const { data } = await axios.get("/api/v1/my-rating", {
+      const { data } = await axios.get(`${BASE_URL}/api/v1/my-rating`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -69,7 +70,7 @@ const Testimonials = () => {
 
   const handleRatingSubmit = async (ratingData) => {
     try {
-      const { data } = await axios.post("/api/v1/rate-platform", ratingData, {
+      const { data } = await axios.post(`${BASE_URL}/api/v1/rate-platform`, ratingData, {
         headers: {
           Authorization: `Bearer ${token}`
         }

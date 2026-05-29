@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const OtpPage = () => {
+  const BASE_URL = import.meta.env.VITE_BACKEND_URL;
   const [otp, setOtp] = useState('');
   const [loading, setLoading] = useState(false);
   const location = useLocation();
@@ -13,7 +14,7 @@ const OtpPage = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const response = await axios.post("/api/v1/otp-verification-and-user-creation", {
+      const response = await axios.post(`${BASE_URL}/api/v1/otp-verification-and-user-creation`, {
         ...userData,
         otp,
       });
@@ -33,7 +34,7 @@ const OtpPage = () => {
 
   const handleResendOTP = async () => {
     try {
-      const response = await axios.post('/api/v1/generate-otp', {
+      const response = await axios.post(`${BASE_URL}/api/v1/generate-otp`, {
         name: userData.name,
         email: userData.email,
         password: userData.password,

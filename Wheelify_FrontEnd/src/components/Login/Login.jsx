@@ -6,6 +6,7 @@ import { AuthContext } from '../../AuthContext/AuthContext.jsx';
 
 
 const LoginForm = () => {
+  const BASE_URL = import.meta.env.VITE_BACKEND_URL;
   const { token } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
@@ -16,7 +17,7 @@ const LoginForm = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/v1/login", { email, password }, {
+      const response = await axios.post(`${BASE_URL}/api/v1/login1`, { email, password }, {
             headers: { Authorization: `Bearer ${token}` },
             withCredentials: true,
           });

@@ -3,6 +3,7 @@ import axios from "axios";
 import { AuthContext } from "../AuthContext/AuthContext";
 
 const MyRegisteredBikes = () => {
+  const BASE_URL = import.meta.env.VITE_BACKEND_URL;
   const [bikes, setBikes] = useState([]);
   const [showRatingForm, setShowRatingForm] = useState(null);
   const [rating, setRating] = useState(0);
@@ -15,7 +16,7 @@ const MyRegisteredBikes = () => {
   useEffect(() => {
     const fetchBikes = async () => {
       try {
-        const res = await axios.get("/api/v1/my-bikes", {
+        const res = await axios.get(`${BASE_URL}/api/v1/my-bikes`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -67,7 +68,7 @@ const MyRegisteredBikes = () => {
     setIsSubmitting(true);
     try {
       const response = await axios.post(
-        `/api/v1/add-bike-rating/${bikeId}`,
+        `${BASE_URL}/api/v1/add-bike-rating/${bikeId}`,
         {
           rating: rating,
           review: review.trim(),
@@ -97,7 +98,7 @@ const MyRegisteredBikes = () => {
       setRating(0);
       setReview("");
       alert("Rating submitted successfully!");
-    } catch (error) {
+    } catch (error) { 
       console.error("Error submitting rating:", error);
       alert("Failed to submit rating. Please try again.");
     } finally {

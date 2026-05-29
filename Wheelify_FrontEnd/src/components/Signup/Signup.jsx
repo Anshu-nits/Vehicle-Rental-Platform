@@ -4,6 +4,7 @@ import { FaBiking, FaEye, FaEyeSlash } from 'react-icons/fa';
 import axios from 'axios';
 
 const SignupForm = () => {
+  const BASE_URL = import.meta.env.VITE_BACKEND_URL;
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -24,7 +25,7 @@ const SignupForm = () => {
 
     try {
       // Call the generate OTP API
-      const response = await axios.post('/api/v1/generate-otp', {
+      const response = await axios.post(`${BASE_URL}/api/v1/generate-otp`, {
         email: formData.email,
       });
 

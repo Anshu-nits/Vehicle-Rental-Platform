@@ -5,6 +5,7 @@ import axios from 'axios';
 import { AuthContext } from '../../AuthContext/AuthContext.jsx';
 
 const SignupForm = () => {
+    const BASE_URL = import.meta.env.VITE_BACKEND_URL;
     const { token } = useContext(AuthContext);
     const [formData, setFormData] = useState({
         email: '',
@@ -23,7 +24,7 @@ const SignupForm = () => {
 
         try {
             // Call the generate OTP API
-            const response = await axios.post("/api/v1/generate-otp", {
+            const response = await axios.post(`${BASE_URL}/api/v1/generate-otp`, {
                 email: formData.email,
             },{
             headers: { Authorization: `Bearer ${token}` },

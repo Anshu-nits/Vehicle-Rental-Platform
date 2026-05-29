@@ -3,6 +3,7 @@ import axios from "axios";
 import { AuthContext } from "../../AuthContext/AuthContext";
 
 const RegisterBikeForm = () => {
+  const BASE_URL = import.meta.env.VITE_BACKEND_URL;
   const [showForm, setShowForm] = useState(false);
    const { token } = useContext(AuthContext);
   const handleSubmit = async (e) => {
@@ -18,7 +19,7 @@ const RegisterBikeForm = () => {
 
     try {
       const response = await axios.post(
-        "/api/v1/register-bike",
+        `${BASE_URL}/api/v1/register-bike`,
         formData,
         {
           headers: {

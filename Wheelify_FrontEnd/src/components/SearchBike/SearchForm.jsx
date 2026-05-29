@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../AuthContext/AuthContext";
 
 const SearchForm = () => {
+  const BASE_URL = import.meta.env.VITE_BACKEND_URL;
   const [formData, setFormData] = useState({
     desiredDate: "",
     desiredTimeFrom: "",
@@ -24,7 +25,7 @@ const SearchForm = () => {
     e.preventDefault();
 
     try {
-      const { data } = await axios.post("/api/v1/search-available-bikes",
+      const { data } = await axios.post(`${BASE_URL}/api/v1/search-available-bikes`,
               formData,
               {
                 headers: {

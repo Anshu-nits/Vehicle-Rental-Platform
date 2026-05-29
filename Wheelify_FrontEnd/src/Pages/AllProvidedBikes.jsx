@@ -4,6 +4,7 @@ import { AuthContext } from '../AuthContext/AuthContext';
 import { Link } from 'react-router-dom';
 
 const AllProvidedBikes = () => {
+  const BASE_URL = import.meta.env.VITE_BACKEND_URL;
   const [bikes, setBikes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -13,7 +14,7 @@ const AllProvidedBikes = () => {
   useEffect(() => {
     const fetchBikes = async () => {
       try {
-        const res = await axios.get('/api/v1/get-provided-bikes', {
+        const res = await axios.get(`${BASE_URL}/api/v1/get-provided-bikes`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 

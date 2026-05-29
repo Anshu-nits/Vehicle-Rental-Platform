@@ -4,6 +4,7 @@ import { AuthContext } from "../AuthContext/AuthContext";
 import { Loader, Star, X } from "lucide-react";
 
 const RentalHistory = () => {
+  const BASE_URL = import.meta.env.VITE_BACKEND_URL;
   const { token } = useContext(AuthContext);
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,7 +19,7 @@ const RentalHistory = () => {
 
   const fetchHistory = async () => {
     try {
-      const res = await axios.get("/api/v1/get-rental-history", {
+      const res = await axios.get(`${BASE_URL}/api/v1/get-rental-history`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (res.data.success) setHistory(res.data.data);
@@ -64,21 +65,21 @@ const RentalHistory = () => {
   };
 
   const handleCancel = (bookingId) => handleAction(
-    "/api/v1/cancel-booking", 
+    `${BASE_URL}/api/v1/cancel-booking`, 
     bookingId, 
     "Are you sure you want to cancel this booking?", 
     "Booking cancelled successfully!"
   );
 
   const handlePickup = (bookingId) => handleAction(
-    "/api/v1/mark-pickedup", 
+    `${BASE_URL}/api/v1/mark-pickedup`, 
     bookingId, 
     "Mark this bike as picked up?", 
     "Bike marked as picked up successfully!"
   );
 
   const handleDrop = (bookingId) => handleAction(
-    "/api/v1/mark-returned", 
+    `${BASE_URL}/api/v1/mark-returned`, 
     bookingId, 
     "Mark this bike as returned?", 
     "Bike marked as returned successfully!"
@@ -118,7 +119,7 @@ const RentalHistory = () => {
     setRatingLoading(true);
     try {
       const response = await axios.post(
-        `/api/v1/add-bike-rating/${bookingId}`,
+        `${BASE_URL}/api/v1/add-bike-rating/${bookingId}`,
         { rating, review: review.trim() },
         { headers: { Authorization: `Bearer ${token}` } }
       );

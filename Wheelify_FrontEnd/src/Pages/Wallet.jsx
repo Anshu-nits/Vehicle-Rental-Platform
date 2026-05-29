@@ -12,6 +12,7 @@ import {
 import { AuthContext } from "../AuthContext/AuthContext";
 
 const WalletPage = () => {
+  const BASE_URL = import.meta.env.VITE_BACKEND_URL;
   const { token } = useContext(AuthContext);
   const [activeTab, setActiveTab] = useState("All");
   const [userBalance, setUserBalance] = useState(0);
@@ -31,10 +32,10 @@ const WalletPage = () => {
   // API endpoint mapping for different transaction types
   const getApiEndpoint = (tabType) => {
     const endpoints = {
-      "All": "/api/v1/get-transaction-history",
-      "Deposits": "/api/v1/get-deposit-history",
-      "Withdrawals": "/api/v1/get-withdrawal-history",
-      "Refunds": "/api/v1/get-refund-history"
+      "All": `${BASE_URL}/api/v1/get-transaction-history`,
+      "Deposits": `${BASE_URL}/api/v1/get-deposit-history`,
+      "Withdrawals": `${BASE_URL}/api/v1/get-withdrawal-history`,
+      "Refunds": `${BASE_URL}/api/v1/get-refund-history`
     };
     return endpoints[tabType] || endpoints["All"];
   };
@@ -51,7 +52,7 @@ const WalletPage = () => {
       setError(null);
 
       const [balanceRes, transactionRes] = await Promise.all([
-        axios.get("/api/v1/get-profile-details", {
+        axios.get(`${BASE_URL}/api/v1/get-profile-details`, {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         }),
@@ -148,7 +149,7 @@ const WalletPage = () => {
     try {
       setDepositLoading(true);
       const res = await axios.post(
-        "/api/v1/deposit-money",
+        `${BASE_URL}/api/v1/deposit-money`,
         {},
         {
           headers: {
@@ -184,7 +185,7 @@ const WalletPage = () => {
     try {
       setWithdrawLoading(true);
       const res = await axios.post(
-        "/api/v1/withdraw-money",
+        `${BASE_URL}/api/v1/withdraw-money`,
         {},
         {
           headers: {

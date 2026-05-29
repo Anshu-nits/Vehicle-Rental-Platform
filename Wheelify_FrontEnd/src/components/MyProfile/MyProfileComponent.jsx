@@ -12,6 +12,7 @@ import axios from "axios";
 import { AuthContext } from "../../AuthContext/AuthContext";
 
 const MyProfileComponent = () => {
+  const BASE_URL = import.meta.env.VITE_BACKEND_URL;
   const { token } = useContext(AuthContext);
   const [profile, setProfile] = useState(null);
   const [editMode, setEditMode] = useState(false);
@@ -24,7 +25,7 @@ const MyProfileComponent = () => {
     const fetchProfile = async () => {
       try {
         const response = await axios.get(
-          "/api/v1/get-profile-details",
+          `${BASE_URL}/api/v1/get-profile-details`,
           {
             headers: { Authorization: `Bearer ${token}` },
             withCredentials: true,
@@ -57,7 +58,7 @@ const MyProfileComponent = () => {
   const handleSave = async () => {
     try {
       await axios.put(
-        "/api/v1/update-profile",
+        `${BASE_URL}/api/v1/update-profile`,
         formData,
         {
           headers: {

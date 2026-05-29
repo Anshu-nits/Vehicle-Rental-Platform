@@ -3,6 +3,7 @@ import axios from "axios";
 import { AuthContext } from "../../AuthContext/AuthContext.jsx";
 
 const ManageBike = () => {
+  const BASE_URL = import.meta.env.VITE_BACKEND_URL;
   const [bikes, setBikes] = useState([]);
   const [showFormForBikeId, setShowFormForBikeId] = useState(null);
   const [showUnregisterConfirmId, setShowUnregisterConfirmId] = useState(null); // 👈 new
@@ -20,7 +21,7 @@ const ManageBike = () => {
 
   const fetchBikes = async () => {
     try {
-      const res = await axios.get("/api/v1/my-bikes", {
+      const res = await axios.get(`${BASE_URL}/api/v1/my-bikes`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setBikes(res.data.data);
@@ -51,7 +52,7 @@ const ManageBike = () => {
   const handleUnregister = async (bikeId) => {
     try {
       const res = await axios.post(
-        "/api/v1/unregister-bike",
+        `${BASE_URL}/api/v1/unregister-bike`,
         { bikeId },
         { headers: { Authorization: `Bearer ${token}` } }
       );
