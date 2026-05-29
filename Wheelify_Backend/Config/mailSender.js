@@ -9,9 +9,7 @@ const mailSender = async (email, title, body) => {
         console.log("MAIL_PORT =", process.env.MAIL_PORT);
         console.log("MAIL_USER =", process.env.MAIL_USER);
         const transporter = nodemailer.createTransport({
-            host: process.env.MAIL_HOST,
-            port: 587,
-            secure: false,
+            service: "gmail",
             auth: {
                 user: process.env.MAIL_USER,
                 pass: process.env.MAIL_PASS,
