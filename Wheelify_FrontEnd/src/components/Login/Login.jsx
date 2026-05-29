@@ -17,7 +17,7 @@ const LoginForm = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${BASE_URL}/api/v1/login1`, { email, password }, {
+      const response = await axios.post(`${BASE_URL}/api/v1/login`, { email, password }, {
             headers: { Authorization: `Bearer ${token}` },
             withCredentials: true,
           });
